@@ -1,9 +1,25 @@
+from collections import namedtuple
+
 from PIL import Image, ImageDraw, ImageFont
+
+# font and font-size
+font = ImageFont.truetype("SourceSansPro-Bold.otf", 384)
+
+transparent = (0, 0, 0, 0)
+white = '#ffffff'
+blue = "#4885ed"
+red = '#db3236'
+yellow = '#f4c20d'
+green = '#3cba54'
+revolution_red = '#dd0b01'
+revolution_yellow = '#faf333'
+
+ColorSet = namedtuple('ColorSet', ['name', 'bgColor', 'firstColor', 'secondColor'])
 
 class MyIcon():
 	def __init__(self, font, letters):
 		self.__font = font
-		self.__1st, self.__2nd = letters # letters showld be a list of length 2, like ['a', 'b'] 
+		self.__1st, self.__2nd = letters # letters showld be a list of length 2, like ['a', 'b']
 
 	def Draw(self, bgColor, firstColor, secondColor, size=512):
 		img = Image.new('RGBA', (size, size)) # blank image
@@ -14,37 +30,28 @@ class MyIcon():
 
 		return img
 
+	@property
+	def name(self):
+		return self.__1st + self.__2nd
 
-# font and font-size
-font = ImageFont.truetype("SourceSansPro-Bold.otf", 384)
+CC_icon = MyIcon(font, ('C', 'C')) # my CC icon
 
-white = '#ffffff'
-blue = "#4885ed"
-red = '#db3236'
-yellow = '#f4c20d'
-green = '#3cba54'
-revolution_red = '#dd0b01'
-revolution_yellow = '#faf333'
-transparent = (0, 0, 0, 0)
 
-CC_icon = MyIcon(font, ['C', 'C']) # my CC icon
-
-			
 def DrawPlain():
 	img = CC_icon.Draw(blue, white, white)
-	img.save('CCPlain.png', 'PNG') 
+	img.save('CCPlain.png', 'PNG')
 
 def DrawColor():
-	img = CC_icon.Draw(blue, red, yellow)	
-	img.save('CCColor.png', 'PNG') 
+	img = CC_icon.Draw(blue, red, yellow)
+	img.save('CCColor.png', 'PNG')
 
 def DrawCutout():
-	img = CC_icon.Draw(blue, transparent, transparent)	
-	img.save('CCCutout.png', 'PNG') 	
+	img = CC_icon.Draw(blue, transparent, transparent)
+	img.save('CCCutout.png', 'PNG')
 
 def DrawCleanPlain():
 	img = CC_icon.Draw(transparent, white, white)
-	img.save('CCCleanPlain.png', 'PNG') 
+	img.save('CCCleanPlain.png', 'PNG')
 
 def DrawCleanColor():
 	img = CC_icon.Draw(transparent, red, yellow)
@@ -54,19 +61,22 @@ def DrawRevolution():
 	img = CC_icon.Draw(revolution_red, revolution_yellow, revolution_yellow)
 	img.save('CCRevolution.png', 'PNG')
 
-def Draw2():
+def Draw4():
 	img = CC_icon.Draw(
-		'#333333', 
-		'#db3236', 
-		'#f4c20d'
+		'#E95420',
+		'#AEA79F',
+		'#77216F',
 		)
-	img.save('CC4.png', 'PNG')
+	img.save('CCUbuntu.png', 'PNG')
+e
+def DrawColorSet(colorSet):
+	img = CC_icon.Draw(
+		colorSet.bgColor,
+		colorSet.firstColor,
+		colorSet.secondColor
+	)
+	img.save('{}_{}.png'.format(CC_icon.name, colorSet.name), 'PNG')
 
 if __name__ == '__main__':
-	# DrawPlain()
-	# DrawColor()
-	# DrawCutout()
-	# DrawCleanPlain()
-	# DrawCleanColor()
-	# DrawRevolution()
-	Draw2()
+	pingcode = ColorSet('pingcode', (93, 207, 255), "#fff", "#348fe4")
+	DrawColorSet(pingcode)
