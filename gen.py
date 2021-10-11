@@ -68,7 +68,7 @@ def Draw4():
 		'#77216F',
 		)
 	img.save('CCUbuntu.png', 'PNG')
-e
+
 def DrawColorSet(colorSet):
 	img = CC_icon.Draw(
 		colorSet.bgColor,
@@ -79,4 +79,7 @@ def DrawColorSet(colorSet):
 
 if __name__ == '__main__':
 	pingcode = ColorSet('pingcode', (93, 207, 255), "#fff", "#348fe4")
-	DrawColorSet(pingcode)
+	music163 = ColorSet('music163', "#C20C0C", "#fff", "#ffca46")
+	twitter = ColorSet('twitter', (29, 155, 240), (207, 217, 222), '#fff')
+	reddit = ColorSet('reddit', (255, 69, 0), "#ffe10d", '#0079d3')
+	DrawColorSet(reddit)
